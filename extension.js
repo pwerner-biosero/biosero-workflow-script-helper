@@ -96,88 +96,50 @@ function activate(context) {
 function deactivate() {}
 
 
-class MyTreeItem extends vscode.TreeItem {
-    constructor(label, collapsibleState = vscode.TreeItemCollapsibleState.None) {
-        super(label, collapsibleState);
-        this.children = [];
-    }
-}
-
-
-// class WFXDataProvider {
-//     constructor() {
-//         this.rootPath = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : null;
-//         this.tree = null;
-//     }
-
-//     getTreeItem(element) {
-//         return element;
-//     }
-
-//     getChildren(element) {
-//         if (!this.rootPath) {
-//             vscode.window.showInformationMessage("Open a folder or workspace first!");
-//             return Promise.resolve([]);
-//         }
-        
-//         if (element === undefined) {
-//             // If tree is not initialized, read the directory and build the tree
-//             if (!this.tree) {
-//                 return readDirectory(this.rootPath).then(items => {
-//                     this.tree = items;
-//                     return items;
-//                 }).catch(err => {
-//                     console.error('Error reading directory:', err);
-//                     return [];
-//                 });
-//             } else {
-//                 return Promise.resolve(this.tree);
-//             }
-//         } else {
-//             // Return children of the given element
-//             return Promise.resolve(element.children);
-//         }
+// class MyTreeItem extends vscode.TreeItem {
+//     constructor(label, collapsibleState = vscode.TreeItemCollapsibleState.None) {
+//         super(label, collapsibleState);
+//         this.children = [];
 //     }
 // }
-
 
 
 function deactivate() {}
 const excludedExtensions = ['.tmp','.js','.json'];
 const excludedDirectories = ['node_modules', '.git', '.vscode'];
 
-function readDirectory(dirPath) {
-    return new Promise((resolve, reject) => {
-        fs.readdir(dirPath, { withFileTypes: true }, (err, dirents) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            let promises = [];
-            let items = [];
-            for (let dirent of dirents) {
-                let fullPath = path.join(dirPath, dirent.name);
-                if (dirent.isDirectory()) {
-                    // Filter out excluded directories
-                    if (!excludedDirectories.includes(dirent.name)) {
-                        let item = new MyTreeItem(dirent.name, vscode.TreeItemCollapsibleState.Collapsed);
-                        promises.push(readDirectory(fullPath).then(children => {
-                            item.children = children;
-                        }));
-                        items.push(item);
-                    }
-                } else {
-                    // Check file extension to decide if it should be excluded
-                    let ext = path.extname(dirent.name);
-                    if (!excludedExtensions.includes(ext)) {
-                        items.push(new MyTreeItem(dirent.name, vscode.TreeItemCollapsibleState.None));
-                    }
-                }
-            }
-            Promise.all(promises).then(() => resolve(items));
-        });
-    });
-}
+// function readDirectory(dirPath) {
+//     return new Promise((resolve, reject) => {
+//         fs.readdir(dirPath, { withFileTypes: true }, (err, dirents) => {
+//             if (err) {
+//                 reject(err);
+//                 return;
+//             }
+//             let promises = [];
+//             let items = [];
+//             for (let dirent of dirents) {
+//                 let fullPath = path.join(dirPath, dirent.name);
+//                 if (dirent.isDirectory()) {
+//                     // Filter out excluded directories
+//                     if (!excludedDirectories.includes(dirent.name)) {
+//                         let item = new MyTreeItem(dirent.name, vscode.TreeItemCollapsibleState.Collapsed);
+//                         promises.push(readDirectory(fullPath).then(children => {
+//                             item.children = children;
+//                         }));
+//                         items.push(item);
+//                     }
+//                 } else {
+//                     // Check file extension to decide if it should be excluded
+//                     let ext = path.extname(dirent.name);
+//                     if (!excludedExtensions.includes(ext)) {
+//                         items.push(new MyTreeItem(dirent.name, vscode.TreeItemCollapsibleState.None));
+//                     }
+//                 }
+//             }
+//             Promise.all(promises).then(() => resolve(items));
+//         });
+//     });
+// }
 
 function GetScriptsFromWorkflow(file) {
     fs.readFile(file, 'utf8', (err, data) => {
