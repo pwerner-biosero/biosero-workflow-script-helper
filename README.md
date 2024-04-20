@@ -9,7 +9,12 @@ This extension helps users to automatically extract and manage scripts within th
 
 ## Usage
 
-To use this extension, open the command palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and type 'Extract Script'.
+To use the Extenstion:
+1. Create a directory in your project root and include a workflow.wfx
+
+2. Right Click on the workflow.wfx file and select Export Workflow Scripts. This will extract all C# Scripts form the workflw.wfx file
+
+3. Right Click on any of the newly created CSharp files To merge changes from any C# file into the workflow.wfx
 
 ## Requirements
 
