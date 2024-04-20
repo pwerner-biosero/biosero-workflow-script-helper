@@ -1,0 +1,38 @@
+{
+  "Get Global Variable Value": {
+    "prefix": "context.GetGlobalVariableValue",
+    "body": [
+      "context.GetGlobalVariableValue<${1:type}>(${2:key});$0"
+    ],
+    "description": "Get a global variable value"
+  },
+  "Update Global Variable Async": {
+    "prefix": "context.UpdateGlobalVariableAsync",
+    "body": [
+      "context.UpdateGlobalVariableAsync(${1:key}, ${2:value});$0"
+    ],
+    "description": "Update a global variable asynchronously"
+  },
+  "C# Script Template for Acme Orchestrator": {
+    "prefix": "acmescript",
+    "body": [
+      "using System.Threading;",
+      "using System.Threading.Tasks;",
+      "using Biosero.DataServices.Client;",
+      "using Biosero.Orchestrator.WorkflowService;",
+      "",
+      "namespace Acme.Orchestrator.Scripting",
+      "{",
+      "    // Scripts require a class with a parameterless constructor and a RunAsync method matching the below signature.",
+      "    public class ${1:Script1_DoesNothing}",
+      "    {",
+      "        public Task RunAsync(DataServicesClient client, WorkflowContext context, CancellationToken cancellationToken)",
+      "        {",
+      "            return Task.CompletedTask;",
+      "        }",
+      "    }",
+      "}"
+    ],
+    "description": "Creates a new C# script template for Acme Orchestrator"
+  }
+}
